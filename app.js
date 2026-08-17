@@ -68,7 +68,7 @@ $('#editCeremonyBtn').addEventListener('click', () => showInvitation('', true));
 $('#homeLogoutBtn').addEventListener('click', () => { setAdminMode(false); });
 $('#couplePhotoBtn').addEventListener('click',()=>$('#couplePhotoInput').click()); $('#backgroundBtn').addEventListener('click',()=>$('#backgroundInput').click());
 $('#couplePhotoInput').addEventListener('change',e=>fileToStore(e.target,'couplePhoto',loadImages)); $('#backgroundInput').addEventListener('change',e=>fileToStore(e.target,'weddingBackground',loadImages));
-$('#addDetail').addEventListener('click', () => addField());
+$('#addDetail').addEventListener('click', () => addField(['parents', 'wellwishers', 'welcome'].includes(currentFolder) ? 'नाव' : 'माहितीचे शीर्षक'));
 $('#modalFields').addEventListener('click', event => { if (event.target.matches('.remove-detail')) event.target.closest('.field').remove(); });
 $('#saveDetail').addEventListener('click',()=>{
   if(currentFolder==='note') state.note=$('#modalFields [data-value]').value.trim()||defaults.note;
