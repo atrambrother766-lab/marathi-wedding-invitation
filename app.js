@@ -49,6 +49,7 @@ function openModal(key){
 }
 function addField(label = 'माहितीचे शीर्षक', value = '', isNote = false) {
   const field = document.createElement('div'); field.className = 'field';
+  if (isNote || ['पूर्ण पत्ता', 'संदेश'].includes(label)) field.classList.add('full-width');
   field.innerHTML = isNote
     ? `<label>आपली टीप</label><textarea data-value>${value}</textarea>`
     : `<input class="field-label-input" data-label value="${label}" aria-label="माहितीचे शीर्षक" /><input data-value value="${value}" aria-label="तपशील" /><button class="remove-detail" type="button" aria-label="ही माहिती काढा">×</button>`;
@@ -78,3 +79,4 @@ document.querySelectorAll('[data-close]').forEach(el=>el.addEventListener('click
 $('#editToggle').addEventListener('click',()=>openModal('note'));
 document.querySelectorAll('[data-key]').forEach(el=>el.addEventListener('blur',()=>{ if (!isAdmin) return; state[el.dataset.key]=el.textContent.trim()||defaults[el.dataset.key];persist(); }));
 loadImages(); updateText(); renderFolders(); setAdminMode(false);
+
