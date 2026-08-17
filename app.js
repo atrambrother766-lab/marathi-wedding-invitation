@@ -5,7 +5,7 @@ const defaults = {
   welcomeKicker: 'शुभ मंगल सावधान', welcomeTitle: 'आमच्या शुभविवाहाचे हार्दिक आमंत्रण', welcomeCopy: 'तुमच्या उपस्थितीने आमचा आनंद द्विगुणित होईल.',
   parents: { title:'आई व वडील', symbol:'♡', fields:[['नावे','श्री. व सौ. आपले नाव']] },
   venue: { title:'विवाह स्थळ', symbol:'⌂', fields:[['स्थळाचे नाव','आपले विवाह स्थळ'],['पूर्ण पत्ता','येथे संपूर्ण पत्ता टाका']], mapQuery:'', whatsappNumber:'', whatsappText:'' },
-  datetime: { title:'दिनांक व वेळ', symbol:'◷', fields:[['दिनांक','रविवार, १५ डिसेंबर २०२६'],['वेळ','सायंकाळी ६:००']), iso:'' },
+  datetime: { title:'दिनांक व वेळ', symbol:'◷', fields:[['दिनांक','रविवार, १५ डिसेंबर २०२६'],['वेळ','सायंकाळी ६:००']], iso:'' },
   wellwishers: { title:'आपले कृपाभीलाषी', symbol:'✧', fields:[['नावे','आपले प्रियजन व मित्रपरिवार']] },
   welcome: { title:'स्वागतोत्सुक', symbol:'✤', fields:[['नावे','आपले नाव व कुटुंब']] },
   mama: { title:'आमच्या मामाच्या लग्नाला यायचं हं!', symbol:'☻', fields:[['संदेश','तुमची उपस्थिती आमच्या हृदयाला स्पर्श करेल']]} 
@@ -59,16 +59,16 @@ function openModal(key){
     const mapHtml = `
       <div class="field full-width">
         <label>Maps स्थान (पत्ता किंवा lat,lng)</label>
-        <input id="venueMapQuery" data-value value="${state.venue.mapQuery || ''}" placeholder="उदा. 19.075983,72.877655 या पूर्ण पत्ता" />
+        <input id="venueMapQuery" data-value value="${escapeHtml(state.venue.mapQuery || '')}" placeholder="उदा. 19.075983,72.877655 या पूर्ण पत्ता" />
         <button id="previewMapBtn" type="button">नकाशा पहा</button>
       </div>
       <div class="field">
         <label>WhatsApp नंबर (Admin)</label>
-        <input id="venueWhatsappNumber" data-value value="${state.venue.whatsappNumber || ''}" placeholder="९१XXXXXXXXXX" />
+        <input id="venueWhatsappNumber" data-value value="${escapeHtml(state.venue.whatsappNumber || '')}" placeholder="९१XXXXXXXXXX" />
       </div>
       <div class="field full-width">
         <label>WhatsApp शेअर मेसेज (Admin)</label>
-        <textarea id="venueWhatsappText">${state.venue.whatsappText || ''}</textarea>
+        <textarea id="venueWhatsappText">${escapeHtml(state.venue.whatsappText || '')}</textarea>
       </div>
       <div class="field full-width" id="venueMapPreviewWrap">
         <label>नकाशा पूर्वावलोकन</label>
@@ -109,7 +109,7 @@ function addField(label = 'माहितीचे शीर्षक', value =
   const field = document.createElement('div'); field.className = 'field';
   if (isNote || ['पूर्ण पत्ता', 'संदेश'].includes(label)) field.classList.add('full-width');
   field.innerHTML = isNote
-    ? `<label>आपली टीप</label><textarea data-value>${value}</textarea>`
+    ? `<label>आपली टीप</label><textarea data-value>${escapeHtml(value)}</textarea>`
     : `<input class="field-label-input" data-label value="${escapeHtml(label)}" aria-label="माहितीचे शीर्षक" /><input data-value value="${escapeHtml(value)}" aria-label="तपशील" /><button class="remove-detail" type="button">✕</button>`;
   $('#modalFields').append(field);
 }
