@@ -18,8 +18,7 @@
         <input id="couplePhotoInput" type="file" accept="image/*" hidden />
         <div class="welcome-content">
           <p class="eyebrow" data-key="welcomeKicker">शुभ मंगल सावधान</p>
-          <div class="monogram" data-key="monogram">अ ✦ व</div>
-          <img class="brand-logo" src="wedding-logo.svg" alt="आकाश आणि वैष्णवी शुभविवाह लोगो" />
+          <!-- Removed explicit couple monogram / names from the welcome page as requested -->
           <h1 data-key="welcomeTitle">आमच्या शुभविवाहाचे हार्दिक आमंत्रण</h1>
           <p class="welcome-copy" data-key="welcomeCopy">तुमच्या उपस्थितीने आमचा आनंद द्विगुणित होईल.</p>
           <form id="guestForm" class="guest-card">
@@ -50,7 +49,7 @@
             <p class="login-error hidden" id="loginError">पासवर्ड चुकीचा आहे.</p>
             <button type="submit">Admin म्हणून पुढे जा →</button>
           </form>
-          <small>पहिल्यांदा वापरत असल्यास पासवर्ड: <b>admin123</b></small>
+          <!-- Removed the default password hint so the password is hidden -->
         </div>
       </section>
 
@@ -68,6 +67,7 @@
             <p class="invite-line"><span id="guestGreeting">प्रिय पाहुणे</span>, आपले सहर्ष स्वागत आहे</p>
             <h2><span data-key="groom">आकाश</span><i>✦</i><span data-key="bride">वैष्णवी</span></h2>
             <p class="marriage-label">यांचा शुभविवाह</p>
+            <div id="countdown" class="countdown" aria-live="polite"></div>
           </div>
         </header>
 
@@ -79,6 +79,12 @@
             </div>
             <button class="edit-toggle" id="editToggle" type="button">संपादित करा</button>
           </div>
+
+          <div class="share-row">
+            <button id="whatsappShare" class="share-btn" type="button">WhatsApp वर शेअर करा</button>
+            <button id="adminWhatsappShare" class="share-btn hidden" type="button">Admin म्हणून शेअर करा</button>
+          </div>
+
           <button class="note-card folder-card" data-folder="note" type="button">
             <span class="folder-icon note-icon">✦</span>
             <span><b>टीप</b><small id="notePreview">आपल्या प्रेमळ उपस्थितीची अपेक्षा आहे.</small></span>
@@ -104,4 +110,3 @@
     <script src="app.js"></script>
   </body>
 </html>
-
