@@ -6,7 +6,7 @@
     <title>आमंत्रण</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Noto+Serif+Devanagari:wght@400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Noto+Serif+Devanagari:wght@400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
@@ -21,9 +21,9 @@
           <!-- New editable couple name block on the first page -->
           <div class="couple-edit">
             <div class="couple-names">
-              <input id="groomInput" class="couple-input" data-key="groom" placeholder="वराचे नाव (उदा. आकाश)" />
+              <input id="groomInput" class="couple-input" placeholder="वराचे नाव (उदा. आकाश)" />
               <span class="sep">✦</span>
-              <input id="brideInput" class="couple-input" data-key="bride" placeholder="वधूचे नाव (उदा. वैष्णवी)" />
+              <input id="brideInput" class="couple-input" placeholder="वधूचे नाव (उदा. वैष्णवी)" />
             </div>
             <div class="surname-block">
               <input id="surnameInput" class="surname-input" data-key="surname" placeholder="आत्राम" />
@@ -38,7 +38,7 @@
             <input id="guestName" autocomplete="name" placeholder="उदा. प्रिय मित्र" required />
             <button type="submit">आमंत्रण उघडा <span>→</span></button>
           </form>
-          <button class="admin-entry" id="showAdminLogin" type="button">आयोजक / Admin लॉगिन</button>
+          <!-- Admin login removed from public welcome screen. Admins can reach the admin login via ?admin=1 or the admin panel. -->
           <div class="admin-home-panel hidden" id="adminHomePanel">
             <span>✦ Admin edit mode</span>
             <button id="editCeremonyBtn" type="button">दुसरे पान संपादित करा →</button>
