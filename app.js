@@ -43,7 +43,6 @@ function setAdminMode(enabled) {
   $('#adminHomePanel').classList.toggle('hidden', !enabled);
   $('#showAdminLogin').classList.toggle('hidden', enabled);
   document.querySelectorAll('[data-key]').forEach(el => { el.contentEditable = enabled ? 'true' : 'false'; el.title = enabled ? 'नाव बदलण्यासाठी टॅप करा' : ''; });
-  // Show/hide admin-specific share button
   document.getElementById('adminWhatsappShare')?.classList.toggle('hidden', !enabled);
 }
 function openModal(key){
@@ -51,10 +50,8 @@ function openModal(key){
   const f = key==='note' ? {title:'टीप',symbol:'✦',fields:[['आपली टीप',state.note]]} : state[key];
   $('#modalSymbol').textContent=f.symbol; $('#modalKicker').textContent=key==='note'?'विशेष संदेश':'विवाह सोहळा'; $('#modalTitle').textContent=f.title;
   $('#modalFields').innerHTML = '';
-  // render existing folder fields
   f.fields.forEach(([label,value]) => addField(label, value, key === 'note'));
 
-  // Additional admin-only controls for specific folders
   if(key==='venue'){
     const mapHtml = `
       <div class="field full-width">
@@ -89,20 +86,14 @@ function openModal(key){
     $('#modalFields').insertAdjacentHTML('beforeend', dtHtml);
   }
 
-  // Buttons visibility
   $('#addDetail').classList.toggle('hidden', key === 'note' || !isAdmin);
   $('#saveDetail').classList.toggle('hidden', !isAdmin);
 
-  // disable fields for guests
   document.querySelectorAll('#modalFields input, #modalFields textarea').forEach(el => el.disabled = !isAdmin);
   document.querySelectorAll('.remove-detail').forEach(el => el.classList.toggle('hidden', !isAdmin));
 
-  // If map exists, render it in preview
   if(key==='venue') renderVenueMapPreview();
-
-  // Preview button handler (works even when disabled but will be enabled for admin)
   $('#previewMapBtn')?.addEventListener('click', ()=>{ renderVenueMapPreview(true); });
-
   $('#detailModal').classList.remove('hidden');
 }
 function addField(label = 'माहितीचे शीर्षक', value = '', isNote = false) {
@@ -114,15 +105,15 @@ function addField(label = 'माहितीचे शीर्षक', value =
   $('#modalFields').append(field);
 }
 function closeModal(){ $('#detailModal').classList.add('hidden'); currentFolder=null; }
-function fileToStore(input,key,after){ const file=input.files[0]; if(!file)return; const reader=new FileReader(); reader.onload=()=>{ try { localStorage.setItem(key,reader.result); after(); } catch(e){ console.error(e); } }; reader.readAsDataURL(file); }
-function showInvitation(name, admin = false) { setAdminMode(admin); $('#guestGreeting').textContent = admin ? 'प्रिय आयोजक' : (name ? `प्रिय ${name}` : 'प्रिय पाहुणे'); $('#welcomeScreen').classList.add('hidden'); $('#invitationScreen').classList.remove('hidden'); startCountdown(); }
+function fileToStore(input,key,after){ const file=input.files[0]; if(!file)return; const reader=new FileReader(); reader.onload=()=>{ try { localStorage.setItem(key,reader.result); after(); } catch(e){console.error(e)} }; reader.readAsDataURL(file); }
+function showInvitation(name, admin = false) { setAdminMode(admin); $('#guestGreeting').textContent = admin ? 'प्रिय आयोजक' : (name ? `प्रिय ${name}` : 'प्रिय पाहुणे'); $('#welcomeScreen').classList.add('hidden'); $('#invitationScreen').classList.remove('hidden'); }
 
 $('#guestForm').addEventListener('submit', e=>{e.preventDefault(); showInvitation($('#guestName').value.trim()); });
 $('#backBtn').addEventListener('click',()=>{ $('#invitationScreen').classList.add('hidden'); $('#welcomeScreen').classList.remove('hidden'); });
 $('#showAdminLogin').addEventListener('click', () => { $('#welcomeScreen').classList.add('hidden'); $('#adminScreen').classList.remove('hidden'); $('#adminPassword').focus(); });
 $('#adminBackBtn').addEventListener('click', () => { $('#adminScreen').classList.add('hidden'); $('#welcomeScreen').classList.remove('hidden'); });
 $('#adminForm').addEventListener('submit', e => { e.preventDefault(); const password = $('#adminPassword').value; const savedPassword = localStorage.getItem('weddingAdminPassword') || '';
-  if(!savedPassword){ // first time set
+  if(!savedPassword){
     localStorage.setItem('weddingAdminPassword', password);
     $('#adminPassword').value='';
     $('#adminScreen').classList.add('hidden');
@@ -145,7 +136,7 @@ $('#saveDetail').addEventListener('click',()=>{
   if(currentFolder==='note') state.note=$('#modalFields [data-value]').value.trim()||defaults.note;
   else {
     const fields=[...document.querySelectorAll('#modalFields .field')]
-      .filter(f=>!f.querySelector('#venueMapQuery')) // exclude our special inputs when mapping fields
+      .filter(f=>!f.querySelector('#venueMapQuery'))
       .map(field=>{
         const labelEl = field.querySelector('[data-label]');
         const valEl = field.querySelector('[data-value]');
@@ -156,7 +147,6 @@ $('#saveDetail').addEventListener('click',()=>{
     state[currentFolder].fields = fields.length ? fields : defaults[currentFolder].fields;
   }
 
-  // handle special venue/admin fields
   if(currentFolder==='venue'){
     const mq = document.getElementById('venueMapQuery')?.value.trim() || '';
     const wn = document.getElementById('venueWhatsappNumber')?.value.trim() || '';
@@ -169,7 +159,6 @@ $('#saveDetail').addEventListener('click',()=>{
     const iso = document.getElementById('datetimeISO')?.value || '';
     if(iso){
       state.datetime.iso = localToIso(iso);
-      // also update human friendly fields
       const d = new Date(state.datetime.iso);
       state.datetime.fields = [["दिनांक", d.toLocaleDateString('mr-IN', {weekday:'long', year:'numeric', month:'long', day:'numeric'})],["वेळ", d.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'})]];
     }
@@ -182,7 +171,6 @@ document.querySelectorAll('[data-close]').forEach(el=>el.addEventListener('click
 $('#editToggle').addEventListener('click',()=>openModal('note'));
 document.querySelectorAll('[data-key]').forEach(el=>el.addEventListener('blur',()=>{ if (!isAdmin) return; state[el.dataset.key]=el.textContent.trim()||defaults[el.dataset.key];persist(); }));
 
-// WhatsApp share handlers
 $('#whatsappShare').addEventListener('click', ()=>{
   const shareText = buildShareText();
   const url = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
@@ -199,7 +187,7 @@ $('#adminWhatsappShare').addEventListener('click', ()=>{
 function buildShareText(){
   const names = `${state.groom || defaults.groom} ✦ ${state.bride || defaults.bride}`;
   const dt = state.datetime?.iso ? new Date(state.datetime.iso).toLocaleString('mr-IN') : (state.datetime?.fields?.[0]?.[1] || 'दिनांक आणि वेळ');
-  const maps = state.venue?.mapQuery ? (isLatLng(state.venue.mapQuery) ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(state.venue.mapQuery)}` : `https://www.google.com/maps/search/${encodeURIComponent(state.venue.mapQuery)}`) : '';
+  const maps = state.venue?.mapQuery ? (isLatLng(state.venue.mapQuery) ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(state.venue.mapQuery)}` : `https://www.google.com/maps?q=${encodeURIComponent(state.venue.mapQuery)}`) : '';
   return `${names} यांचे विवाह - ${dt}\n${state.venue?.fields?.find(f=>f[0]==='पूर्ण पत्ता')?.[1] || ''}\n${maps}`.trim();
 }
 
