@@ -6,7 +6,7 @@
     <title>आमंत्रण</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Noto+Serif+Devanagari:wght@400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Noto+Serif+Devanagari:wght@400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
@@ -18,7 +18,19 @@
         <input id="couplePhotoInput" type="file" accept="image/*" hidden />
         <div class="welcome-content">
           <p class="eyebrow" data-key="welcomeKicker">शुभ मंगल सावधान</p>
-          <!-- Removed explicit couple monogram / names from the welcome page as requested -->
+          <!-- New editable couple name block on the first page -->
+          <div class="couple-edit">
+            <div class="couple-names">
+              <input id="groomInput" class="couple-input" data-key="groom" placeholder="वराचे नाव (उदा. आकाश)" />
+              <span class="sep">✦</span>
+              <input id="brideInput" class="couple-input" data-key="bride" placeholder="वधूचे नाव (उदा. वैष्णवी)" />
+            </div>
+            <div class="surname-block">
+              <input id="surnameInput" class="surname-input" data-key="surname" placeholder="आत्राम" />
+              <div class="surname-subtext">परिवार आपले सहर्ष स्वागत करीत आहे</div>
+            </div>
+          </div>
+
           <h1 data-key="welcomeTitle">आमच्या शुभविवाहाचे हार्दिक आमंत्रण</h1>
           <p class="welcome-copy" data-key="welcomeCopy">तुमच्या उपस्थितीने आमचा आनंद द्विगुणित होईल.</p>
           <form id="guestForm" class="guest-card">
