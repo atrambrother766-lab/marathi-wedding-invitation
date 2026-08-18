@@ -18,19 +18,7 @@
         <input id="couplePhotoInput" type="file" accept="image/*" hidden />
         <div class="welcome-content">
           <p class="eyebrow" data-key="welcomeKicker">शुभ मंगल सावधान</p>
-          <!-- New editable couple name block on the first page -->
-          <div class="couple-edit">
-            <div class="couple-names">
-              <input id="groomInput" class="couple-input" placeholder="वराचे नाव (उदा. आकाश)" />
-              <span class="sep">✦</span>
-              <input id="brideInput" class="couple-input" placeholder="वधूचे नाव (उदा. वैष्णवी)" />
-            </div>
-            <div class="surname-block">
-              <input id="surnameInput" class="surname-input" data-key="surname" placeholder="आत्राम" />
-              <div class="surname-subtext">परिवार आपले सहर्ष स्वागत करीत आहे</div>
-            </div>
-          </div>
-
+          <!-- Removed explicit couple monogram / names from the welcome page as requested -->
           <h1 data-key="welcomeTitle">आमच्या शुभविवाहाचे हार्दिक आमंत्रण</h1>
           <p class="welcome-copy" data-key="welcomeCopy">तुमच्या उपस्थितीने आमचा आनंद द्विगुणित होईल.</p>
           <form id="guestForm" class="guest-card">
@@ -38,7 +26,7 @@
             <input id="guestName" autocomplete="name" placeholder="उदा. प्रिय मित्र" required />
             <button type="submit">आमंत्रण उघडा <span>→</span></button>
           </form>
-          <!-- Admin login removed from public welcome screen. Admins can reach the admin login via ?admin=1 or the admin panel. -->
+          <button class="admin-entry" id="showAdminLogin" type="button">आयोजक / Admin लॉगिन</button>
           <div class="admin-home-panel hidden" id="adminHomePanel">
             <span>✦ Admin edit mode</span>
             <button id="editCeremonyBtn" type="button">दुसरे पान संपादित करा →</button>
